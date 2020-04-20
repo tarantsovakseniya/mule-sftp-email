@@ -9,9 +9,9 @@ api:
 sftp:
   host: "0.0.0.0"
   port: "22"
-  user: "userexsftp"
-  password: "password"
-  directory: ""
+  user: "xxx"
+  password: "xxx"
+  directory: "xxx"
   
 smtp:
   host: "smtp.gmail.com"
