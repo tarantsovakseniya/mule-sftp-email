@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:http="http://www.mulesoft.org/schema/mule/http" xmlns:apikit="http://www.mulesoft.org/schema/mule/mule-apikit"
+	xmlns="http://www.mulesoft.org/schema/mule/core"
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/mule-apikit http://www.mulesoft.org/schema/mule/mule-apikit/current/mule-apikit.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd">
+	<flow name="interface.post-doc" doc:id="be832419-45b5-4248-a47c-f3a14577aa7c" >
+		<http:listener doc:name="Listener" doc:id="6b0035d0-0b07-497d-9806-6cc4698db31c" path="${api.http.path}/doc" config-ref="HTTP_Listener_config" allowedMethods="POST"/>
+		<logger level="INFO" doc:name="Logger" doc:id="06b77f42-9042-4df8-b9a1-65f96be9da3a" message='#[flow.name as String ++ " START"]'/>
+		<flow-ref doc:name="implementation.doc-validation" doc:id="a55ba5bf-66cb-42b8-beff-78d76268fccc" name="implementation.doc-validation"/>
+		<logger level="INFO" doc:name="Logger" doc:id="0c8b3b4d-f988-4905-af1e-08067f10a972" message='#[flow.name as String ++ " END"]'/>
+	</flow>
+</mule>

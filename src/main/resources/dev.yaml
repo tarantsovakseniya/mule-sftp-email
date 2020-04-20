@@ -1,0 +1,22 @@
+api:
+  version: "1.0"
+  
+  http:
+    port: "8080"
+    host: "localhost"
+    path: "/api/${api.version}"
+    
+sftp:
+  host: "0.0.0.0"
+  port: "22"
+  user: "userexsftp"
+  password: "password"
+  directory: ""
+  
+smtp:
+  host: "smtp.gmail.com"
+  port: "587"
+  user: "xxx"
+  password: "xxx"
+  sender: xxx
+  receiver: xxx

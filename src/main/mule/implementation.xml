@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:email="http://www.mulesoft.org/schema/mule/email" xmlns:ftp="http://www.mulesoft.org/schema/mule/ftp"
+	xmlns:sftp="http://www.mulesoft.org/schema/mule/sftp"
+	xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/sftp http://www.mulesoft.org/schema/mule/sftp/current/mule-sftp.xsd
+http://www.mulesoft.org/schema/mule/ftp http://www.mulesoft.org/schema/mule/ftp/current/mule-ftp.xsd
+http://www.mulesoft.org/schema/mule/email http://www.mulesoft.org/schema/mule/email/current/mule-email.xsd">
+	<sub-flow name="implementation.doc-validation" doc:id="d8de4fe8-ebfc-4fae-bd7f-7ce45adcc16b" >
+		<logger level="INFO" doc:name="Logger" doc:id="6a3ff976-dad3-4176-8db6-fd00293abb00" message='#[flow.name as String ++ " START"]'/>
+		<set-variable value="#[message.attributes.queryParams.valid]" doc:name="Set Variable" doc:id="870762c0-e243-4a8a-add0-6d2275f48814" variableName="docValid"/>
+		<choice doc:name="Choice" doc:id="7f814f0d-46f9-491e-86eb-abfc472741ac" >
+			<when expression="#['true' == vars.docValid]">
+				<sftp:write doc:name="Write" doc:id="7a64da2a-62b2-4a32-b0f3-d7860c96ccc8" config-ref="SFTP_Config" path="#['/upload/test-' ++ now() ++ '.csv']" mode="CREATE_NEW"/>
+			</when>
+			<otherwise >
+				<email:send doc:name="Send" doc:id="8a754ad5-73e8-49de-92f8-4a2a69b1c302" config-ref="Email_SMTP" fromAddress="${smtp.sender}" subject="Mule">
+					<email:to-addresses >
+						<email:to-address value="${smtp.receiver}" />
+					</email:to-addresses>
+				</email:send>
+			</otherwise>
+		</choice>
+		<logger level="INFO" doc:name="Logger" doc:id="8b9eff4a-5ea3-415f-a59a-5b3b45952fdd" message='#[flow.name as String ++ " END"]'/>
+	</sub-flow>
+</mule>
