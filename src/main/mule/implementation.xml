@@ -11,7 +11,7 @@ http://www.mulesoft.org/schema/mule/email http://www.mulesoft.org/schema/mule/em
 		<set-variable value="#[message.attributes.queryParams.valid]" doc:name="Set Variable" doc:id="870762c0-e243-4a8a-add0-6d2275f48814" variableName="docValid"/>
 		<choice doc:name="Choice" doc:id="7f814f0d-46f9-491e-86eb-abfc472741ac" >
 			<when expression="#['true' == vars.docValid]">
-				<sftp:write doc:name="Write" doc:id="7a64da2a-62b2-4a32-b0f3-d7860c96ccc8" config-ref="SFTP_Config" path="#['/upload/test-' ++ now() ++ '.csv']" mode="CREATE_NEW"/>
+				<sftp:write doc:name="Write to SFTP" doc:id="7a64da2a-62b2-4a32-b0f3-d7860c96ccc8" config-ref="SFTP_Config" path="#['/upload/test-' ++ now() ++ '.csv']" mode="CREATE_NEW"/>
 			</when>
 			<otherwise >
 				<email:send doc:name="Send" doc:id="8a754ad5-73e8-49de-92f8-4a2a69b1c302" config-ref="Email_SMTP" fromAddress="${smtp.sender}" subject="Mule">
